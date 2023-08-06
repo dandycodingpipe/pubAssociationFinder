@@ -1,0 +1,15 @@
+Package: bioXminer
+Type: Package
+Title: Key Concept Association Finder
+Version: 1.0.0
+Author: Christian A. Hernandez-Fajardo
+Maintainer: Herandez-Fajardo, C.A <christian.a.hernandezf@hotmail.com>
+Description: Text mine large sets of PubMed abstracts for highly sigificant keyword or bioconcept associations
+License:  
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
