@@ -87,7 +87,7 @@ bioCAF <- function(data, choice, support, venv_path, lang_model) {
   #NLP / Machine Learning Quick-Suite
 
   library(spacyr)
-  spacy_initialize(model = lang_model, virtualenv = venv)
+  spacy_initialize(model = lang_model, virtualenv = venv_path)
   parsed <- spacy_parse(entryData$bioannotations)
   cleaned <- parsed[-c(which(parsed$token <= 1)),]
 
