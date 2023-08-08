@@ -15,7 +15,7 @@ MeSH_Mapper(word, removal)
 This function is the classification workhouse which outputs the same association-rule dataframe you input, but with an additional column dedicated to the classification values.
 }
 \examples{
-MeSH_Mapper(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "\%", "β", ">", "sub>50</sub","müllerian", "#"))
+MeSH_Mapper(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°"))
 }
 \keyword{ARM,}
 \keyword{Association-rule}
