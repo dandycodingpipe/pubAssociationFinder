@@ -9,7 +9,7 @@
 #' @examples
 #' KAFxAOP(rules)
 
-KAFxAOP <- function(sample, AOPdownload) {
+matchAOP <- function(sample, AOPdownload) {
 
   results <- cbind(sample, AOPclass = NA, AOPvalue = NA)
   #and not FREE

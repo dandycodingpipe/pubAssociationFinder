@@ -2,10 +2,9 @@
 % Please edit documentation in R/4.1_AOP.R
 \name{matchAOP}
 \alias{matchAOP}
-\alias{KAFxAOP}
 \title{Compare KAF results to the AOP-wiki database to find notable key events, stressors, and biological processes present in your PubMed query.}
 \usage{
-KAFxAOP(sample, AOPdownload)
+matchAOP(sample, AOPdownload)
 }
 \arguments{
 \item{rules}{Association rule dataframe that was mined using Abstract_ARM or easyKAF. Limit this parameter to 5000-20000 rules as deduplication is very computationally demanding.}
