@@ -72,9 +72,10 @@ coord_set <- c()
 for(g in 1:length(removal$unique_rules)){
   coord <- which(words$unique_rules == removal[g,])
   coord_set = c(coord_set, coord)
-  }
+}
+if(!(is_empty(coord_set))){
 words <- data.frame(unique_rules = words$unique_rules[-c(coord_set)])
-
+}
       #this is a link that is used to interface with MeSH RDF API
       getsparq_left <- "https://id.nlm.nih.gov/mesh/sparql?query=PREFIX%20rdf%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%20PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%20PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20PREFIX%20owl%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%20PREFIX%20meshv%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2Fvocab%23%3E%20PREFIX%20mesh%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F%3E%20PREFIX%20mesh2015%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2015%2F%3E%20PREFIX%20mesh2016%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2016%2F%3E%20PREFIX%20mesh2017%3A%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%2F2017%2F%3E%20%20%20SELECT%20%3Fd%20%3FdName%20%3Fc%20%3FcName%20%20FROM%20%3Chttp%3A%2F%2Fid.nlm.nih.gov%2Fmesh%3E%20%20%20%20WHERE%20%7B%20%20%20%20%20%20%3Fd%20a%20meshv%3ADescriptor%20.%20%20%3Fd%20meshv%3Aactive%201%20.%20%20%3Fd%20meshv%3Aconcept%20%3Fc%20.%20%20%3Fd%20rdfs%3Alabel%20%3FdName%20.%20%20%3Fc%20rdfs%3Alabel%20%3FcName%20%20FILTER(REGEX(%3FdName%2C%22"
       getsparq_right1 <- "%22%2C%22i%22)%20%7C%7C%20REGEX(%3FcName%2C%22"
@@ -189,11 +190,13 @@ MeSH_filter <- function(MeSH_data){
 #' @keywords Post processing, Association-rule mining, ARM, classification, MeSH
 #' @export
 #' @examples
-#' MeSH_finalizer(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", "β", ">", "sub>50</sub","müllerian", "#"))
+#' matchMeSH(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", "β", ">", "sub>50</sub","müllerian", "#"))
+
 matchMeSH <- function(raw_rules, removal){
+
     library(httr)
     library(jsonlite)
-      library(dplyr)
+    library(dplyr)
 
       classifications <- MeSH_Mapper(raw_rules,removal)
 

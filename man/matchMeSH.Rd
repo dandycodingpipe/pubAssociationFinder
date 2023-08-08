@@ -15,7 +15,7 @@ matchMeSH(raw_rules, removal)
 This function handles the classification suite of functions and outputs cleaned and classified association rules
 }
 \examples{
-MeSH_finalizer(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "\%", "β", ">", "sub>50</sub","müllerian", "#"))
+matchMeSH(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "\%", "β", ">", "sub>50</sub","müllerian", "#"))
 }
 \keyword{ARM,}
 \keyword{Association-rule}
