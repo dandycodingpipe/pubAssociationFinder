@@ -62,12 +62,12 @@ Word_Cleaner <- function(data) {
 #' @param removal A list of words you'd like to remove from the classification task (typically because they crash the process)
 #' @keywords Post processing, Association-rule mining, ARM, classification
 #' @examples
-#' MeSH_Mapper(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", "β", ">", "sub>50</sub","müllerian", "#"))
+#' MeSH_Mapper(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°"))
 MeSH_Mapper <- function(word, removal){
 
 removal = data.frame(unique_rules = removal)
-data <- words
 words <- Word_Cleaner(word)
+data <- words
 coord_set <- c()
 for(g in 1:length(removal$unique_rules)){
   coord <- which(words$unique_rules == removal[g,])
@@ -88,8 +88,8 @@ words <- data.frame(unique_rules = words$unique_rules[-c(coord_set)])
       for(i in 1:length(words$unique_rules)) {
             print(paste0('Index ',i,": ",words$unique_rules[i]))
           # Replace spaces with '%20' if the string contains a space
-            words$unique_rules[i] <- ifelse(grepl(" ", words$unique_rules[i]), gsub(" ", "%20", words$unique_rules[i]), word$unique_rules[i])
-            words$unique_rules[i] <- ifelse(grepl("_", words$unique_rules[i]), gsub(" ", "%20", words$unique_rules[i]), word$unique_rules[i])
+            #words$unique_rules[i] <- ifelse(grepl(" ", words$unique_rules[i]), gsub(" ", "%20", words$unique_rules[i]), word$unique_rules[i])
+            #words$unique_rules[i] <- ifelse(grepl("_", words$unique_rules[i]), gsub(" ", "%20", words$unique_rules[i]), word$unique_rules[i])
             #create the SQL query that returns the links for possible RDF id matches
             SQL_token_query_modifier <- paste(getsparq_left,words$unique_rules[i],getsparq_right1,words$unique_rules[i],get_sqarq_right2, sep = "")
 
@@ -183,14 +183,14 @@ MeSH_filter <- function(MeSH_data){
 #' The KAF classification work-horse
 #'
 #' This function handles the classification suite of functions and outputs cleaned and classified association rules
-#' @name MeSH_finalizer
+#' @name matchMeSH
 #' @param raw_rules The data frame of rules you want to classify
 #' @param removal A list of words that crash the classifier. These words are removed and not classified.
 #' @keywords Post processing, Association-rule mining, ARM, classification, MeSH
 #' @export
 #' @examples
 #' MeSH_finalizer(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", "β", ">", "sub>50</sub","müllerian", "#"))
-MeSH_finalizer <- function(raw_rules, removal){
+matchMeSH <- function(raw_rules, removal){
     library(httr)
     library(jsonlite)
       library(dplyr)
