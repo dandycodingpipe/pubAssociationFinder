@@ -1,30 +1,27 @@
-# Keyword Association Finder
+# The bio-text mining R package
 
-The Keyword Association Finder, or KAF, helps you delve deeper into new or familiar biotechnology topics by data mining several abstracts relating to your typical database query.
+bioTM is an integrative software package that allows users to data mine PubMed literature at scale.
 
 ## Description
 
-This tool mines anywhere from 500 to 20,000 articles that relate to a PubMed or Europe PMC query and retrieves the most signficant keyword relationships that exist within the corpus. The results can be visualized according to biomedical subjects such as anatomical keywords, diseases, chemicals & drugs, or analytical and therapeutic techniques.
+Whenever a user inputs a query on PubMed, they often see thousands of publications that are related to their search. In an ideal scenario we would be able to read all of these entries, but this is often times impractical. bioTM can sample large quantities of scientific abstracts (n = 500 - 2,000) and data mine them to generate potentially important keyword or bio-concept relationships spanning the literature. By using an automatic text extraction framework that combines natural language processing (NLP) and association rules learning, users can generate broad or highly-specific outputs of text relationships that serve as reflection of current scientific evidence and/or understanding of specific biomedical topics.
 
 ## Getting Started
 
 ### Dependencies
 * Windows, Mac, or Linux 
 * R Version (4.2.2 or latest version)
-* Python virtual environment with spacy and a spacy english-language model (e.g en_core_web_sm or en_core_web_trf)
-* R studio (Optional)
+* Python virtual environment with spaCy and a spaCy english-language model
+* R studio (Suggested)
 
 
 ### Installing
+*Package installation
 ```
-devtools::install_github('dandycodingpipe/KAFtool')
-library(KAFtool)
-library(tidyverse)
-library(httr)
-library(jsonlite)
+library(devtools)
+devtools::install_github('dandycodingpipe/pubAssociationFinder')
 ```
-* Before anything, make sure you have R and python installed on your computer.
-* Install pip and venv through your command line interface (command prompt on Windows/terminal on Mac)
+* Virtual environment installation (REQUIRED)
 
 Windows
 ```
@@ -42,61 +39,74 @@ pip install -U pip setuptools wheel
 pip install -U spacy
 python -m spacy download en_core_web_sm
 ```
-Remember the path you define your virtual environment in because it is required in the program.
 
-Also, if you are done using the tool it is recommended to deactivate and remove the virtual environment from your computer.
+Save the path to your activated virtual environment because it will be used to activate spaCy on R.
 
-## Quick Execution (faster results)
+If you are done using the tool it is recommended to deactivate and remove the virtual environment from your computer.
 
-This provides the quickest and most reliable ruleset production methodology. (Default parameters of 1000 articles, min_supp = 0.01, min_conf = 0.50, and min_p = 0.001)
+## Quick-guide to using bioTM
+
+### easyKAF - see the literature at-a-glance
+
+This function is the fastest way to apply text mining to PubMed. Depending on your computer and the amount of abstracts retrieved, results can be generated in about 3-10 minutes. 
 
 ```
-source("easyKAF.R)
-rules <- easyKAF(venv = your_venv, lang_model = your_model)
+keywords <- easyKAF("pulmonary arterial hypertension","pubmed", "C:/Users/Chris/OneDrive/2023/Systox/venvJune19", "en_core_web_lg")
 ```
-## Manual program execution (more control)
+* Limited to a maximum of 1,500 abstracts
+* Databases available are "pubmed" and "pmc"
+* Mines relationships with a minimum support, confidence, and p-value of 1%, 75%, and p<0.005)
+* For more customization options see the manual function calling guide
 
-The software is currently not available as a package so it must be called through Github. It is simplified into a 5 functions whose results must be passed onto each other.
-* Calling the scripts
-```
-source("Information_Retrieval.R")
-source("NLP.R")
-source("Apriori_ARM_tool.R")
-source("MeSH_Classification.R")
-source("Visualization.R")
-```
-### Information Retrieval
-This is perhaps the most important step. You can make your query essentially any medical or biotechnological query you'd like, but remember that a well-made query can significantly improve the raw data KAF retrieves, therefore the results of the text mining.
-See these references for how to manage the unique syntax of each database to optimise your search queries.
-[PubMed Query Help/Syntax](https://pubmed.ncbi.nlm.nih.gov/help/) or
-[Europe PMC Query Syntax](https://europepmc.org/searchsyntax)
-```
-myQuery <- "human DNA polymerase AND (damage or repair)"
-retrieved_info <- info_retrieval(myQuery, 1000, "pmc")
-```
-### Natural Language Processing (NLP)
-```
-NLP_info <- Text_Parser(retrieved_info, venv_path = "your//environment//path", 
-            lang_model = "en_core_web_sm", 0.2)
-```
-the package that KAF uses to initiate communication between R and Python (spacyr) can be sensitive to how the environment path is defined. You may need to try different combinations of single or double forward and backward slashes for declaring the environment path. If the venv is not found, quit R, reinitiate it, and try a new environment path.
 
-### Association-rules Mining (ARM)
-```
-keyword_info <- ARM(NLP_info, min_supp = 0.01, min_conf = 0.75, min_p = 0.005)
-```
-### Classification & Visualization
-```
+### easyKAF result exploration functions
 
-classified_keywords <- MeSH_finalizer(keyword_info)
+bioTM contains functions that help classify, visualize, and export (coming soon) results so that users can conveniently survey the biomedical topic that was queried.
 
-results <- ruleViewer(classified_keywords, "raw", "bme")
 ```
+meshTerms <- matchMeSH(keywords, c("lead"))
+aopRisks <- matchAOP(keywords, "aop-wiki-xml-2023-04-01.xml")
+```
+* _matchMeSH_ which classifies rules using the Medical Subject Headings database according to (Anatomy, Organism, Disease, Chemicals and Drugs, Analytical, Diagnostic and Therapeutic Techniques, and Equipment, etc.) through exact-string matching
+* _matchAOP_ which classifies a set of 5,000 rules using the AOP-wiki database quarterly downloads according to AOP-classes (stressor, key-event, biological process, biological-object, AOP) through fuzzy-string matching (>75% similarity threshold).
 
+### bioCAF - Explore chemicals, mutations, genes, and diseases at a higher standard
+
+This function generates more specific toxico-genomic data by using abstracts that are pre-annotated by PubTator for bio-named entities or bio-concepts. Depending on your computer and the amount of abstracts retrieved, results can be generated in about 10-20 minutes.
+
+```
+bioNER <- PubTator("pulmonary arterial hypertension")
+bioconcepts <- bioCAF(concepts, "gene", 0.001, "C:/Users/Chris/OneDrive/2023/Systox/venvJune19", "en_core_web_lg")
+
+```
+* Limited to a maximum of 2,000 abstracts
+* Support is controlled by the user but confidence and p-value thresholds are fixed at (60% and p<0.05)
+* Currently only pre-annotated PubTator abstracts are supported
+
+### Manual KAF execution
+
+```
+# 1. Retrieval
+
+        retrieved <- pubRetrieve(query, 1500, database)
+
+# 2. Natural language processing
+      
+        preProcessed <- pubParse(retrieved, method = "POS", composite = "n",       venv_path, lang_model, 0.2)
+
+# 3. Unsupervised machine learning
+        rules <- pubMine(preProcessed, 0.01, 0.75, 0.005)
+
+# 3.1 (Optional) Pruning large-rule set
+        filt_rules <- which(rules$lift <= 2)
+        rules <- rules[-filt_rules,]
+```
 
 ## Help
 
-Do not retrieve more than 1500 articles for PubMed searches, Europe PMC is better optimized and can retrieve up to 20,000. Be conscious of your hardware limitations as this software can create significant computational load with parameters that call many articles or mine large rulesets.
+Be conscious of your hardware limitations as this software can create significant computational load with parameters that call many articles or mine large rulesets.
+
+When retrieving abstract data, PubMed is limited to 2,000 texts while EuropePMC can reliably retrieve up to 20,000 for certain queries.
 
 ## Authors
 
@@ -107,22 +117,13 @@ ex. [Linkedin](https://www.linkedin.com/in/christianalejandro/)
 
 ## Version History
 
-* 0.2 (coming soon)
-    * KAF is now defined as an R package that can be retrieved through devtools::github!
-    * KAF now integrates new features like rule-set deduplication and AOP-wiki classification for AOP discovery
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+* 0.0.1
+    * Alpha release (does not include co-occurence network visualization or export functions)
 
 ## Disclaimer
 
-It is not the intention of KAF to provide specific medical advice but rather to provide users with information to better understand health, diagnosed disorders, and advances in medicine and biotechnology. Results from KAF are not medical advice and you should consult with a qualified physician for diagnosis and for answers to your personal questions.
+bioTM is not intended to provide specific medical advice or diagnosis. The software only provides users with information to better survey health risks, genetics, diagnosed disorders, and advances in medicine and biotechnology that are frequenting in the scientific community. Results from bioTM are not medical advice and you should consult with a qualified health professional for diagnosis and/or answers to personal questions.
 
-## Licensing and Copyrighting
-
-This software sources data from the National Library of Medecine's PubMed.
-   
-Europe PMC Articles in the open access subset are still protected by copyright, but are made available under a Creative Commons license, or similar, that generally allows more liberal redistribution and reuse than a traditional copyrighted work. 
 
 ## Acknowledgments
 
