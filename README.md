@@ -16,7 +16,7 @@ Whenever a user inputs a query on PubMed, they often see thousands of publicatio
 
 
 ### Installing
-*Package installation
+* Package installation
 ```
 library(devtools)
 devtools::install_github('dandycodingpipe/pubAssociationFinder')
