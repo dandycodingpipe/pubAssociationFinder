@@ -1,10 +1,10 @@
-Package: bioXminer
+Package: bioTM
 Type: Package
-Title: Key Concept Association Finder
-Version: 1.0.0
+Title: The bio-text miner
+Version: 0.0.1
 Author: Christian A. Hernandez-Fajardo
 Maintainer: Herandez-Fajardo, C.A <christian.a.hernandezf@hotmail.com>
-Description: Text mine large sets of PubMed abstracts for highly sigificant keyword or bioconcept associations
+Description: Type a query and data mine hundreds of related PubMed articles. Results are highly significant keywords or bioconcept relationships available for analysis.
 License:  
 Encoding: UTF-8
 LazyData: true
