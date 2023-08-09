@@ -68,7 +68,7 @@ meshTerms <- matchMeSH(keywords, c("lead"))
 aopRisks <- matchAOP(keywords, "aop-wiki-xml-2023-04-01.xml")
 ```
 * _matchMeSH_ which classifies rules using the Medical Subject Headings database according to (Anatomy, Organism, Disease, Chemicals and Drugs, Analytical, Diagnostic and Therapeutic Techniques, and Equipment, etc.) through exact-string matching
-* _matchAOP_ which classifies a set of 5,000 rules using the AOP-wiki database quarterly downloads according to AOP-classes (stressor, key-event, biological process, biological-object, AOP) through fuzzy-string matching (>75% similarity threshold).
+* _matchAOP_ which classifies a set of 5,000 rules using the [AOP-wiki database quarterly downloads](https://aopwiki.org/downloads) according to AOP-classes (stressor, key-event, biological process, biological-object, AOP) through fuzzy-string matching (>75% similarity threshold). It is the user's responsability to download and place the xml file in the current directory.
 
 ### bioCAF - Explore chemicals, mutations, genes, and diseases at a higher standard
 
