@@ -70,13 +70,13 @@
             # Stop word removal: parts-of-speech
             removePOS <- which(parsed_text$pos %in% c("PUNCT", "NUM", "SPACE"))
             parsed_text <- parsed_text[-removePOS,]
+            parsed_text <- parsed_text[-c(which(parsed_text$token <= 1)),]
 
             if(is.null(method) | method == 'POS'){
 
               #4) POS filtering and lemma extraction
               POS <- which(parsed_text$pos %in% c("NOUN", "VERB", "ADJ"))
-              POS <- POS[-c(which(POS$token <= 1)),]
-              parsed_text <- POS
+              parsed_text <- parsed_text[POS,]
               print(paste("filtered ",length(parsed_text$lemma),"potentially relevant lemma based on POS."))
 
               } else {

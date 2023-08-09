@@ -89,6 +89,7 @@ bioCAF <- function(data, choice, support, venv_path, lang_model) {
   library(spacyr)
   spacy_initialize(model = lang_model, virtualenv = venv_path)
   parsed <- spacy_parse(entryData$bioannotations)
+  parsed_text <- rm_negation(parsed)
   cleaned <- parsed[-c(which(parsed$token <= 1)),]
 
   library(arules)
