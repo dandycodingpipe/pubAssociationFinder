@@ -11,7 +11,7 @@
 PubTator <- function(query) {
 
   library(easyPubMed)
-  library(KAFtool)
+  library(bioTM)
   library(stringr)
   library(dplyr)
   library(httr)

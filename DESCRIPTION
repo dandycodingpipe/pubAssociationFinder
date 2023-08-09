@@ -4,7 +4,7 @@ Title: The bio-text miner
 Version: 0.0.1
 Author: Christian A. Hernandez-Fajardo
 Maintainer: Herandez-Fajardo, C.A <christian.a.hernandezf@hotmail.com>
-Description: Type a query and data mine hundreds of related PubMed articles. Results are highly significant keywords or bioconcept relationships available for analysis.
+Description: Type a query and data mine hundreds of related PubMed articles. Results are highly relevant keywords or bioconcept relationships that can be viewed or exported.
 License:  
 Encoding: UTF-8
 LazyData: true
