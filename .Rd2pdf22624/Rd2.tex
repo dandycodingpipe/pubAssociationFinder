@@ -1,0 +1,632 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `bioTM'}}
+\par\bigskip{\large \today}
+\end{center}
+\inputencoding{utf8}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {bioTM: The bio-text miner}}}{}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{The bio-text miner}
+\item[Version]\AsIs{0.0.1}
+\item[Author]\AsIs{Christian A. Hernandez-Fajardo}
+\item[Maintainer]\AsIs{Herandez-Fajardo, C.A }\email{christian.a.hernandezf@hotmail.com}\AsIs{}
+\item[Description]\AsIs{Type a query and data mine hundreds of related PubMed articles. Results are highly relevant keywords or bioconcept relationships that can be viewed or exported.}
+\item[License]\AsIs{}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[RoxygenNote]\AsIs{7.2.3}
+\item[Suggests]\AsIs{knitr,
+rmarkdown}
+\item[VignetteBuilder]\AsIs{knitr}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{abstractReduction}{Reduce the size of your PubMed abstract texts}{abstractReduction}
+%
+\begin{Usage}
+\begin{verbatim}
+abstractReduction(data, fraction)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] PubMed entry data (see 'pubRetrieve')
+
+\item[\code{fraction}] The decimal represenitng the fraction of each abstract to trim. We recommend (0.2) or 20
+
+
+Trim abstracts from the head and remove any entries without abstract text data.
+
+
+abstractReduction(data = abstract\_data, fraction = 0.2)
+
+Text
+reduction
+\end{ldescription}
+\end{Arguments}
+\inputencoding{utf8}
+\HeaderA{add\_underscores\_to\_compound\_words}{Replace bioentity noun phrase spacing with underscores to preserve structure}{add.Rul.underscores.Rul.to.Rul.compound.Rul.words}
+%
+\begin{Description}\relax
+This function is not intended for users
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+add_underscores_to_compound_words(character_list)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{character\_list}] List of named entities in character type
+\end{ldescription}
+\end{Arguments}
+\inputencoding{utf8}
+\HeaderA{AOP\_XML\_children\_organizer}{Converts AOP-wiki XML files into R data frames for further processing}{AOP.Rul.XML.Rul.children.Rul.organizer}
+\keyword{AOP}{AOP\_XML\_children\_organizer}
+\keyword{AOP-wiki,}{AOP\_XML\_children\_organizer}
+\keyword{Classification,}{AOP\_XML\_children\_organizer}
+%
+\begin{Description}\relax
+This function takes XML and converts
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+AOP_XML_children_organizer(doc)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{doc}] XML file downloaded from AOP-wiki
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+Word_Cleaner(data = association_rules_df)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{bioCAF}{Mine bioconcept associations by combining PubTator and KAF}{bioCAF}
+\keyword{KAF,}{bioCAF}
+\keyword{PubMed}{bioCAF}
+\keyword{PubTator,}{bioCAF}
+%
+\begin{Description}\relax
+Bioconcepts associations this function can produce are chemical-gene, gene-gene, or disease-chemical/disease-gene.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+bioCAF(data, choice, support, venv_path, lang_model)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] Generated using PubTator
+
+\item[\code{choice}] Control which associations to mine and retrieve for analysis: "All", Chemical", "Disease", "Gene", "Systox" (Chemical and disease associations)
+
+\item[\code{support}] To control computational load, support is modifiable according to each query and user needs. If you are generating too many results for your liking, you can increase this support threshold which represents the percentage of (=<2000) abstracts
+
+\item[\code{venv\_path}] REQUIRED: The path to your python venv. (see 'https://github.com/dandycodingpipe/KAFtool' for additional information)
+
+\item[\code{lang\_model}] REQUIRED: The spaCy language model installed in your venv
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+bioCAF(data, "Disease", 0.001, "C:/Users/Chris/OneDrive/2023/Systox/venvJune19", "en_core_web_lg")
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{easyKAF}{Quickly mine PubMed literature from either PubMed or Europe PMC for signficant associations}{easyKAF}
+\keyword{ARM,}{easyKAF}
+\keyword{Association-rule}{easyKAF}
+\keyword{KAF,}{easyKAF}
+\keyword{KAFtool,}{easyKAF}
+\keyword{MeSH,}{easyKAF}
+\keyword{Systox}{easyKAF}
+\keyword{classification,}{easyKAF}
+\keyword{mining,}{easyKAF}
+\keyword{visualization,}{easyKAF}
+%
+\begin{Description}\relax
+This method is for general literature exploration and limits users control for quick results. For more control over parameters, see 'pubRetrieve', 'pubParse', and 'pubMine'. For generating results that may be useful for translational research see 'bioKAF'. If this function does not work, you probably defined the venv wrong. You will need to restart R, and retry with the correct path.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+easyKAF(query, database, venv_path, lang_model)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{query}] Your typical PubMed query. Optimizing your query using the proper PubMed or Europe PMC syntax improves results.
+
+\item[\code{database}] Define the PubMed database to retrieve from: "pubmed" or "pmc". Currently, only "pubmed" articles can be used for bio-entity mining.
+
+\item[\code{venv\_path}] REQUIRED: The path to your python venv. (see 'https://github.com/dandycodingpipe/KAFtool' for additional information)
+
+\item[\code{lang\_model}] REQUIRED: The spaCy language model installed in your venv
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+rules <- easyKAF(venv = "C:/Users/JohnDoe/venv/mar6", lang_model = "en_core_web_sm")
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{europepmc\_retrieval}{The Europe PMC search and retrieve function used for sourcing abstracts.}{europepmc.Rul.retrieval}
+\keyword{EuropePMC,}{europepmc\_retrieval}
+\keyword{PMC,}{europepmc\_retrieval}
+\keyword{Pubmed,}{europepmc\_retrieval}
+\keyword{Query,}{europepmc\_retrieval}
+\keyword{Retrieval}{europepmc\_retrieval}
+%
+\begin{Description}\relax
+This function allows you to query and access key entry data from European PubMed central.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+europepmc_retrieval(query, retmax)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{query}] Your typical PubMed query. Optimizing your query using the proper pubmed syntax improves results!
+
+\item[\code{retmax}] Define how many entries you'd like to access for a query. Keep it between 500-1000 for fastest results. (Limit is around 20,000)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+europepmc_retrieval(Query = "Vape smoking AND toxicity", retmax = 750)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{KAFviewer}{The KAF visualization suite}{KAFviewer}
+\keyword{ARM,}{KAFviewer}
+\keyword{Association-rule}{KAFviewer}
+\keyword{MeSH,}{KAFviewer}
+\keyword{Post}{KAFviewer}
+\keyword{classification,}{KAFviewer}
+\keyword{mining,}{KAFviewer}
+\keyword{processing,}{KAFviewer}
+\keyword{visualization}{KAFviewer}
+%
+\begin{Description}\relax
+This function allows you to display rules as a bargraph or as a dataframe according to the classification of choice.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+KAFviewer(rules, viz, class)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{rules}] The data frame of rules you want to classify
+
+\item[\code{viz}] The visualization option ("df" or "bar")
+
+\item[\code{class}] The classification display option ("all","bme","anatomy", "organism","diseases","chemicals","techniques","other","unlab")
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+ruleViewer(viz <- ruleViewer(classified_rules, "bar", "bme"))
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{matchAOP}{Compare KAF results to the AOP-wiki database to find notable key events, stressors, and biological processes present in your PubMed query.}{matchAOP}
+\keyword{AOP}{matchAOP}
+\keyword{Hashing,}{matchAOP}
+\keyword{Jaccard}{matchAOP}
+\keyword{LSH,}{matchAOP}
+\keyword{Locality}{matchAOP}
+\keyword{Similarity,}{matchAOP}
+\keyword{deduplication,}{matchAOP}
+\keyword{fuzzy}{matchAOP}
+\keyword{hashing,}{matchAOP}
+\keyword{matching,}{matchAOP}
+\keyword{sensitive}{matchAOP}
+%
+\begin{Description}\relax
+(In development) Uses locality-sensitive hashing to efficiently cluster and calculate the Jaccard similarity between mined rules and AOP-wiki values/classes. Values below 60
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+matchAOP(sample, AOPdownload)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{rules}] Association rule dataframe that was mined using Abstract\_ARM or easyKAF. Limit this parameter to 5000-20000 rules as deduplication is very computationally demanding.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+KAFxAOP(rules)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{matchMeSH}{The KAF classification work-horse}{matchMeSH}
+\keyword{ARM,}{matchMeSH}
+\keyword{Association-rule}{matchMeSH}
+\keyword{MeSH}{matchMeSH}
+\keyword{Post}{matchMeSH}
+\keyword{classification,}{matchMeSH}
+\keyword{mining,}{matchMeSH}
+\keyword{processing,}{matchMeSH}
+%
+\begin{Description}\relax
+This function handles the classification suite of functions and outputs cleaned and classified association rules
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+matchMeSH(raw_rules, removal)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{raw\_rules}] The data frame of rules you want to classify
+
+\item[\code{removal}] A list of words that crash the classifier. These words are removed and not classified.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+matchMeSH(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", "β", ">", "sub>50</sub","müllerian", "#"))
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{MeSH\_filter}{This function simply rebuilds the association rules that the MeSH cleaner had removed.}{MeSH.Rul.filter}
+\keyword{ARM,}{MeSH\_filter}
+\keyword{Association-rule}{MeSH\_filter}
+\keyword{MeSH}{MeSH\_filter}
+\keyword{Post}{MeSH\_filter}
+\keyword{classification,}{MeSH\_filter}
+\keyword{mining,}{MeSH\_filter}
+\keyword{processing,}{MeSH\_filter}
+%
+\begin{Description}\relax
+Used for MeSH\_Cleaner.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+MeSH_filter(MeSH_data)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{MeSH\_data}] The data frame of rules you want to re-structure
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+MeSH_filter(MeSH_data)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{MeSH\_Mapper}{A function that communicates with the Medical Subject Headings (MeSH) RDF API to classify consequenets (RHS) from mined association rules.}{MeSH.Rul.Mapper}
+\keyword{ARM,}{MeSH\_Mapper}
+\keyword{Association-rule}{MeSH\_Mapper}
+\keyword{Post}{MeSH\_Mapper}
+\keyword{classification}{MeSH\_Mapper}
+\keyword{mining,}{MeSH\_Mapper}
+\keyword{processing,}{MeSH\_Mapper}
+%
+\begin{Description}\relax
+This function is the classification workhouse which outputs the same association-rule dataframe you input, but with an additional column dedicated to the classification values.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+MeSH_Mapper(word, removal)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{word}] The data frame of rules you want to classify
+
+\item[\code{removal}] A list of words you'd like to remove from the classification task (typically because they crash the process)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+MeSH_Mapper(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°"))
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{pubmed\_retrieval}{PubMed multi-entry and retrieval function}{pubmed.Rul.retrieval}
+\keyword{PMC,}{pubmed\_retrieval}
+\keyword{Pubmed,}{pubmed\_retrieval}
+\keyword{Query,}{pubmed\_retrieval}
+\keyword{Retrieval}{pubmed\_retrieval}
+%
+\begin{Description}\relax
+This function allows you to query and access key entry data from PubMed.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+pubmed_retrieval(query, retmax)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{query}] Your typical PubMed query. Optimizing your query using the proper pubmed syntax improves results!
+
+\item[\code{retmax}] Define how many entries you'd like to access for a query. Keep it between 500-1000 for fastest results. (Limit is around 2000)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+pubmed_retrieval(Query = "Vape smoking AND toxicity", retmax = 750)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{pubMine}{Mine association-rules on parsed PubMed abstract data}{pubMine}
+\keyword{Processing}{pubMine}
+\keyword{algorithm,}{pubMine}
+\keyword{arules,}{pubMine}
+\keyword{association-rules}{pubMine}
+\keyword{mining,}{pubMine}
+\keyword{statistics,}{pubMine}
+%
+\begin{Description}\relax
+The output is an R dataframe containing association rules and associated metrics. Outputs can vary greatly depending on the parsing method.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+pubMine(data, min_supp, min_conf, min_p)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] Parsed data (See pubParse)
+
+\item[\code{min\_supp}] Define the minimum support threshold for the rules (e.g 0.01 or 0.10)
+
+\item[\code{min\_conf}] Define the minimum confidence threshold for the rules (e.g 0.50 or 0.90)
+
+\item[\code{min\_p}] Define the minimum p-value threshold for the rules (e.g 0.05 or 0.0.005)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+pubMine(data <- data_from_Text_Parser, min_supp = 0.01, min_conf = 0.75, min_p = 0.005)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{pubParse}{Parse retrieved abstract data using spaCy}{pubParse}
+%
+\begin{Usage}
+\begin{verbatim}
+pubParse(data, method, composite, venv_path, lang_model, reduced_search)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] PubMed entry data (see 'pubRetrieve')
+
+\item[\code{method}] Filtering method ('POS' or 'DEP'). Default: 'POS'
+
+\item[\code{composite}] 'Y' or defaults to null. Construct composite words using n-grams. This may help reduce trivial associations between words that form a composite word (e.g insulin -> resistance)
+
+\item[\code{venv\_path}] REQUIRED: The path to your python venv. (see 'https://github.com/dandycodingpipe/KAFtool' for additional information)
+
+\item[\code{lang\_model}] REQUIRED: The spaCy language model installed in your venv
+
+\item[\code{reduced\_search}] The decimal represenitng the fraction of each abstract to trim. We recommend (0.2) or 20
+
+
+Parsed PubMed abstracts and extract potentially relevant information according to simple Parts-of-Speech or Language dependencies. For bio-entity extraction see '
+
+
+pubParse(data = abstract\_data, venv\_path = "C:/Users/Chris/OneDrive/2023/Systox/venvJune19", lang\_model = "en\_core\_web\_lg", reduced\_search = 0.2)
+
+Text
+dependencies,
+language
+lemmatization,
+n-grams
+of
+parsing,
+parts
+segmentation,
+sentence
+speech,
+tokenization,
+\end{ldescription}
+\end{Arguments}
+\inputencoding{utf8}
+\HeaderA{pubRetrieve}{Extract PubMed or Europe PMC entry information for any query}{pubRetrieve}
+\keyword{Europe}{pubRetrieve}
+\keyword{Information}{pubRetrieve}
+\keyword{PMC}{pubRetrieve}
+\keyword{PubMed,}{pubRetrieve}
+\keyword{retrieval,}{pubRetrieve}
+%
+\begin{Description}\relax
+Combines functionality from two R-packages: "easyPubMed" and "europepmc" for reliable PubMed entry data extraction.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+pubRetrieve(query, size, database)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{query}] Your typical PubMed query. Optimizing your query using the proper PubMed or Europe PMC syntax improves results.
+
+\item[\code{size}] An integer representing the number of entries to retrieve. PubMed is limited to about 2000 articles, while Europe PMC can pull around 20,000.
+
+\item[\code{database}] Define the PubMed database to retrieve from: "pubmed" or "pmc".
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+pubRetrieve(query = "Vape smoking AND toxicity", size = 2000, database = "pubmed")
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{PubTator}{Retrieve bio-entities in PubMed data using PubTator}{PubTator}
+\keyword{KAF,}{PubTator}
+\keyword{PubMed}{PubTator}
+\keyword{PubTator,}{PubTator}
+%
+\begin{Description}\relax
+This function uses PubTator-annotated articles to retrieve pre-annotated articles. These results should be passed onto bioKAF for further processing (See bioKAF).
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+PubTator(query)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{query}] Input a PubMed query (see https://pubmed.ncbi.nlm.nih.gov/help/\#how-do-i-search-pubmed)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+PubTator("dioxin toxicity","C:/Users/Chris/OneDrive/2023/Systox/venvJune19", "en_core_web_lg" )
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{rm\_negation}{The function removes sentences possessing negations. Used in Text\_Parser()}{rm.Rul.negation}
+\keyword{NLP,}{rm\_negation}
+\keyword{Text}{rm\_negation}
+\keyword{language}{rm\_negation}
+\keyword{modifier}{rm\_negation}
+\keyword{natural}{rm\_negation}
+\keyword{negation}{rm\_negation}
+\keyword{processing,}{rm\_negation}
+\keyword{reduction,}{rm\_negation}
+%
+\begin{Description}\relax
+This function removes negations in already-parsed abstract corpus.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+rm_negation(Abstract_Parse)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{Abstract\_Parse}] Input your parsed abstracts. (typically obtained from the spacy\_parse function)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+rm_negation(Abstract_Parse = parsed_abstracts_from_spacy_parse)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{Rule\_Concatenator}{Clean association rules}{Rule.Rul.Concatenator}
+\keyword{ARM,}{Rule\_Concatenator}
+\keyword{Association-rule}{Rule\_Concatenator}
+\keyword{MeSH}{Rule\_Concatenator}
+\keyword{Post}{Rule\_Concatenator}
+\keyword{classification,}{Rule\_Concatenator}
+\keyword{mining,}{Rule\_Concatenator}
+\keyword{processing,}{Rule\_Concatenator}
+%
+\begin{Description}\relax
+Before fuzzy matching we have to pre-process the rules by concatenating them into a single string
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+Rule_Concatenator(rules)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{rules}] The data frame of rules you want to concatenate
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+Rule_Concatenator(rules)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{Word\_Cleaner}{A crude consequent or RHS remover function for ambigious rules.}{Word.Rul.Cleaner}
+\keyword{ARM,}{Word\_Cleaner}
+\keyword{Association-rule}{Word\_Cleaner}
+\keyword{Post}{Word\_Cleaner}
+\keyword{classification}{Word\_Cleaner}
+\keyword{mining,}{Word\_Cleaner}
+\keyword{processing,}{Word\_Cleaner}
+%
+\begin{Description}\relax
+This function removes the bracketing present in association-rules (e.g consequent) for better post-processing
+\end{Description}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] Input your mined associations rules.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Examples}
+\begin{ExampleCode}
+Word_Cleaner(data = association_rules_df)
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}
