@@ -75,8 +75,8 @@
 
               #4) POS filtering and lemma extraction
               POS <- which(parsed_text$pos %in% c("NOUN", "VERB", "ADJ"))
-              cleaned <- parsed_text[-c(which(parsed_text$token <= 1)),]
-              parsed_text <- cleaned[POS,]
+              POS <- POS[-c(which(POS$token <= 1)),]
+              parsed_text <- POS
               print(paste("filtered ",length(parsed_text$lemma),"potentially relevant lemma based on POS."))
 
               } else {
