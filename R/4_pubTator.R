@@ -17,7 +17,7 @@ PubTator <- function(query) {
   library(httr)
   library(tidyverse)
 
-  Total_Data <- info_retrieval(query, 2000, "pubmed")
+  Total_Data <- pubRetrieve(query, 2000, "pubmed")
 
   BioAnnotations <- c()
   REDUCTION <- c()
