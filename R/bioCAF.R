@@ -17,7 +17,7 @@ bioCAF <- function(data, choice, support, venv_path, lang_model) {
   entryData <- data[[1]]
   BioAnnotations <- data[[2]]
 
-  for (j in 1:length(entryData$pmid)) {
+  for (j in 1:(length(entryData$pmid)-1)) {
 
     data_text <- BioAnnotations[j]
 
@@ -25,7 +25,7 @@ bioCAF <- function(data, choice, support, venv_path, lang_model) {
 
 
     # Read the data into a data frame
-    df <- read.delim(text = data_text, header = FALSE, stringsAsFactors = FALSE)
+    df <- read.delim(text = data_text, header = FALSE, stringsAsFactors = FALSE, quote = "")
     og_length <- length(df$V6)
     if(og_length == 0){
      next
