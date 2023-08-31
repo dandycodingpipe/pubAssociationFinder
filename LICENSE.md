@@ -1,11 +1,11 @@
 ================================================================================
 ================================================================================
 
-       Third-Party Software for https://github.com/dandycodingpipe/KAFTool
+       Third-Party Software for https://github.com/dandycodingpipe/pubAssociationFinder
 
 --------------------------------------------------------------------------------
 
-The following 3rd-party software packages may be used by or distributed with https://github.com/dandycodingpipe/KAFtool.git. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
+The following 3rd-party software packages may be used by or distributed with https://github.com/dandycodingpipe/pubAssociationFinder.git. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
 
 Date generated: 2023-7-11
 
