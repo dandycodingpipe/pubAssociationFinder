@@ -91,7 +91,7 @@ viz
 * Support is controlled by the user but confidence and p-value thresholds are fixed at (60% and p<0.05)
 * Currently only pre-annotated PubTator abstracts are supported
 
-<img src="https://github.com/dandycodingpipe/pubAssociationFinder" alt="A sample of the interactive co-occurence network generated for pulmonary hypertension using "all" available bioconcepts.">
+<img src="https://raw.githubusercontent.com/dandycodingpipe/pubAssociationFinder/main/image.png" alt="A sample of the interactive co-occurence network generated for pulmonary hypertension using "all" available bioconcepts.">
 
 
 ### Manual KAF execution
