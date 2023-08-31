@@ -20,6 +20,9 @@ Whenever a user inputs a query on PubMed, they often see thousands of publicatio
 ```
 library(devtools)
 devtools::install_github('dandycodingpipe/pubAssociationFinder')
+
+library(bioTM)
+library(tidyverse)
 ```
 * Virtual environment installation (REQUIRED)
 
@@ -75,8 +78,13 @@ aopRisks <- matchAOP(keywords, "aop-wiki-xml-2023-04-01.xml")
 This function generates more specific toxico-genomic data by using abstracts that are pre-annotated by PubTator for bio-named entities or bio-concepts. Depending on your computer and the amount of abstracts retrieved, results can be generated in about 10-20 minutes.
 
 ```
-bioNER <- PubTator("pulmonary arterial hypertension")
-bioconcepts <- bioCAF(concepts, "gene", 0.001, "C:/Users/Chris/OneDrive/2023/Systox/venvJune19", "en_core_web_lg")
+concepts <- PubTator("pulmonary arterial hypertension")
+results <- bioCAF(concepts, "gene", 0.001, "C:/Users/Chris/OneDrive/2023/Systox/venvJune19", "en_core_web_lg")
+
+#NEW!
+
+viz <- systox(results, "layout_nicely")
+viz
 
 ```
 * Limited to a maximum of 2,000 abstracts
@@ -116,7 +124,8 @@ ex. Christian A. Hernandez-Fajardo
 ex. [Linkedin](https://www.linkedin.com/in/christianalejandro/)
 
 ## Version History
-
+* 0.0.2 
+    * Addition of a co-occurence network construction and visualization function (systox) with instructions for html export in       the documentation.
 * 0.0.1
     * Alpha release (does not include co-occurence network visualization or export functions)
 
@@ -129,6 +138,15 @@ bioTM is not intended to provide specific medical advice or diagnosis. The softw
 
 This tool was developed for the [Systox group](https://systox.u-paris-sciences.fr/) (Unit T3S) at the Université Paris Cité as a means of exploring new methods for leveraging scientific research for the discovery of adverse outcome pathways.
 
+A special thanks to Karine Audouze, Florence Jornod, and Mingji Kim for their supervision and expertise.
+
 Complementary tool:
 
 * [AOP-helpFinder](http://aop-helpfinder.u-paris-sciences.fr/)
+
+## Citations
+
+1. Wei, C. H., Kao, H. Y., & Lu, Z. (2013). PubTator: a web-based text mining tool for assisting biocuration. Nucleic acids research, 41(Web Server issue), W518–W522. https://doi.org/10.1093/nar/gkt441
+
+2. Chih-Hsuan Wei and others, PubTator central: automated concept annotation for biomedical full text articles, Nucleic Acids Research, Volume 47, Issue W1, 02 July 2019, Pages W587–W593, https://doi.org/10.1093/nar/gkz389
+

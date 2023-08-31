@@ -1,10 +1,10 @@
 Package: bioTM
 Type: Package
 Title: The bio-text miner
-Version: 0.0.1
+Version: 0.0.2
 Author: Christian A. Hernandez-Fajardo
 Maintainer: Herandez-Fajardo, C.A <christian.a.hernandezf@hotmail.com>
-Description: Type a query and data mine hundreds of related PubMed articles. Results are highly relevant keywords or bioconcept relationships that can be viewed or exported.
+Description: Type a query and data mine hundreds of related PubMed articles. Results are highly relevant keywords or bioconcept relationships that can be viewed or exported in a variety of formats.
 License:  
 Encoding: UTF-8
 LazyData: true

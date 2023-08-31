@@ -31,7 +31,7 @@ bioCAF <- function(data, choice, support, venv_path, lang_model) {
      next
     }
     df <- df[-c(1,2),]
-    print(j)
+    #print(j)
     #print(paste((which(duplicated(df$V6) == FALSE)/og_length)*100, "% reduced"))
     df <- df[which(duplicated(df$V6) == FALSE),]
 
