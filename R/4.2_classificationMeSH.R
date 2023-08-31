@@ -190,7 +190,7 @@ MeSH_filter <- function(MeSH_data){
 #' @keywords Post processing, Association-rule mining, ARM, classification, MeSH
 #' @export
 #' @examples
-#' matchMeSH(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", "β", ">", "sub>50</sub","müllerian", "#"))
+#' matchMeSH(rules, removal = c("ml(-1","sub>2</sub","study","lead","±", "°", "confidence", "-", "%", ">", "sub>50</sub","müllerian", "#"))
 
 matchMeSH <- function(raw_rules, removal){
 
