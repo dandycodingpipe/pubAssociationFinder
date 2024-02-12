@@ -41,6 +41,8 @@ PubTator <- function(query) {
     }
   }
 
-  Total_Data_Copy <- Total_Data[-REDUCTION,]
-  return(list(Total_Data_Copy, BioAnnotations))
+  if(!length(REDUCTION)==0){
+  Total_Data <- Total_Data[-REDUCTION,]
+  }
+  return(list(Total_Data, BioAnnotations))
 }
